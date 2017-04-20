@@ -60,9 +60,27 @@ declare namespace sipjs {
         on(name: 'connected', callback: (args: UA.EventArgs.ConnectedArgs) => void): void;
         on(name: 'disconnected' | 'registered' | string, callback: () => void): void;
         on(name: 'unregistered', callback: (args: UA.EventArgs.UnregisteredArgs) => void): void;
-        on(name: 'registrationFailed', callback: (args: UA.EventArgs.RegistrationFailedArgs) => void): void;
+        on(name: 'registrationFailed', callback: (response: IncomingResponse, cause: string) => void): void;
         on(name: 'invite', callback: (session: Session) => void): void;
         on(name: 'message', callback: (message: Message) => void): void;
+    }
+
+    interface IncomingResponse {
+        body: string;
+        call_id: "string";
+        cseq: number;
+        data: string;
+        from: NameAddrHeader;
+        from_tag: string;
+        headers: { [id: string] : {}[]; };
+        logger: {};
+        method: string;
+        reason_phrase: string;
+        status_code: number;
+        to: NameAddrHeader;
+        to_tag: string;
+        via: { [id: string] : {}[]; };
+        via_branch: string;
     }
 
     namespace UA.C {
